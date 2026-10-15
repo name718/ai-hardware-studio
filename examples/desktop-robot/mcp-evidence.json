@@ -1,0 +1,1183 @@
+{
+  "schema_version": 2,
+  "path_kind": "artifact-root-relative",
+  "artifact_root_relative_to_evidence": "verified",
+  "executed_at": "2026-10-15T06:32:35.712884+00:00",
+  "transport": "stdio",
+  "initialize": {
+    "meta": null,
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "experimental": {},
+      "logging": null,
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      },
+      "completions": null,
+      "tasks": null
+    },
+    "serverInfo": {
+      "name": "AI Hardware Studio CAD",
+      "title": null,
+      "version": "1.30.0",
+      "websiteUrl": null,
+      "icons": null
+    },
+    "instructions": null
+  },
+  "tools": [
+    {
+      "name": "cad_get_bracket_schema",
+      "title": null,
+      "description": "Return millimetre parameter schema and explicitly fictional demo defaults.",
+      "inputSchema": {
+        "properties": {},
+        "title": "cad_get_bracket_schemaArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "ToolError": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "details": {
+                "additionalProperties": true,
+                "title": "Details",
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "ToolError",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ToolError"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "ToolResponse",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "cad_assess_parameters",
+      "title": null,
+      "description": "Validate source records, nominal values and worst-case uncertainty before CAD.",
+      "inputSchema": {
+        "$defs": {
+          "BracketParameters": {
+            "additionalProperties": false,
+            "description": "Millimetres; origin at base centre in XY, underside Z=0.",
+            "properties": {
+              "units": {
+                "const": "mm",
+                "default": "mm",
+                "title": "Units",
+                "type": "string"
+              },
+              "dimension_source": {
+                "default": "fictional_demo",
+                "enum": [
+                  "fictional_demo",
+                  "user_measured",
+                  "manufacturer_document"
+                ],
+                "title": "Dimension Source",
+                "type": "string"
+              },
+              "source_note": {
+                "default": "Fictional demonstration values; not matched to any real PCB.",
+                "maxLength": 500,
+                "minLength": 10,
+                "title": "Source Note",
+                "type": "string"
+              },
+              "base_length": {
+                "default": 74.0,
+                "maximum": 300,
+                "minimum": 10,
+                "title": "Base Length",
+                "type": "number"
+              },
+              "base_width": {
+                "default": 54.0,
+                "maximum": 300,
+                "minimum": 10,
+                "title": "Base Width",
+                "type": "number"
+              },
+              "base_thickness": {
+                "default": 3.0,
+                "maximum": 20,
+                "minimum": 1,
+                "title": "Base Thickness",
+                "type": "number"
+              },
+              "corner_radius": {
+                "default": 2.0,
+                "maximum": 10,
+                "minimum": 0,
+                "title": "Corner Radius",
+                "type": "number"
+              },
+              "hole_pitch_x": {
+                "default": 50.0,
+                "maximum": 280,
+                "minimum": 5,
+                "title": "Hole Pitch X",
+                "type": "number"
+              },
+              "hole_pitch_y": {
+                "default": 30.0,
+                "maximum": 280,
+                "minimum": 5,
+                "title": "Hole Pitch Y",
+                "type": "number"
+              },
+              "standoff_height": {
+                "default": 8.0,
+                "maximum": 60,
+                "minimum": 1,
+                "title": "Standoff Height",
+                "type": "number"
+              },
+              "standoff_diameter": {
+                "default": 7.0,
+                "maximum": 30,
+                "minimum": 3,
+                "title": "Standoff Diameter",
+                "type": "number"
+              },
+              "hole_diameter": {
+                "default": 3.2,
+                "maximum": 15,
+                "minimum": 1,
+                "title": "Hole Diameter",
+                "type": "number"
+              },
+              "minimum_wall": {
+                "default": 1.2,
+                "maximum": 5,
+                "minimum": 0.8,
+                "title": "Minimum Wall",
+                "type": "number"
+              },
+              "dimension_evidence": {
+                "additionalProperties": {
+                  "$ref": "#/$defs/DimensionEvidence"
+                },
+                "propertyNames": {
+                  "enum": [
+                    "base_length",
+                    "base_width",
+                    "base_thickness",
+                    "corner_radius",
+                    "hole_pitch_x",
+                    "hole_pitch_y",
+                    "standoff_height",
+                    "standoff_diameter",
+                    "hole_diameter",
+                    "minimum_wall"
+                  ]
+                },
+                "title": "Dimension Evidence",
+                "type": "object"
+              }
+            },
+            "title": "BracketParameters",
+            "type": "object"
+          },
+          "DimensionEvidence": {
+            "additionalProperties": false,
+            "properties": {
+              "nominal_mm": {
+                "maximum": 300,
+                "minimum": 0,
+                "title": "Nominal Mm",
+                "type": "number"
+              },
+              "uncertainty_mm": {
+                "description": "Worst-case \u00b1 input tolerance, not CAD precision",
+                "maximum": 5,
+                "minimum": 0,
+                "title": "Uncertainty Mm",
+                "type": "number"
+              },
+              "source_kind": {
+                "enum": [
+                  "measurement",
+                  "manufacturer_document",
+                  "design_decision"
+                ],
+                "title": "Source Kind",
+                "type": "string"
+              },
+              "reference": {
+                "description": "Document ID/URL or measurement record ID",
+                "maxLength": 500,
+                "minLength": 5,
+                "title": "Reference",
+                "type": "string"
+              },
+              "locator": {
+                "description": "Drawing/page/feature or measurement method",
+                "maxLength": 200,
+                "minLength": 3,
+                "title": "Locator",
+                "type": "string"
+              },
+              "revision": {
+                "maxLength": 100,
+                "minLength": 1,
+                "title": "Revision",
+                "type": "string"
+              }
+            },
+            "required": [
+              "nominal_mm",
+              "uncertainty_mm",
+              "source_kind",
+              "reference",
+              "locator",
+              "revision"
+            ],
+            "title": "DimensionEvidence",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "parameters": {
+            "$ref": "#/$defs/BracketParameters"
+          }
+        },
+        "required": [
+          "parameters"
+        ],
+        "title": "cad_assess_parametersArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "ToolError": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "details": {
+                "additionalProperties": true,
+                "title": "Details",
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "ToolError",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ToolError"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "ToolResponse",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "cad_build_bracket",
+      "title": null,
+      "description": "Build four-post bracket using real OCC; check status before consuming files.\n\n        Only validated parameters are accepted. This tool does not execute user code.\n        Success includes STEP/STL, offline 3D preview, source and hashed evidence.\n        ",
+      "inputSchema": {
+        "$defs": {
+          "BracketParameters": {
+            "additionalProperties": false,
+            "description": "Millimetres; origin at base centre in XY, underside Z=0.",
+            "properties": {
+              "units": {
+                "const": "mm",
+                "default": "mm",
+                "title": "Units",
+                "type": "string"
+              },
+              "dimension_source": {
+                "default": "fictional_demo",
+                "enum": [
+                  "fictional_demo",
+                  "user_measured",
+                  "manufacturer_document"
+                ],
+                "title": "Dimension Source",
+                "type": "string"
+              },
+              "source_note": {
+                "default": "Fictional demonstration values; not matched to any real PCB.",
+                "maxLength": 500,
+                "minLength": 10,
+                "title": "Source Note",
+                "type": "string"
+              },
+              "base_length": {
+                "default": 74.0,
+                "maximum": 300,
+                "minimum": 10,
+                "title": "Base Length",
+                "type": "number"
+              },
+              "base_width": {
+                "default": 54.0,
+                "maximum": 300,
+                "minimum": 10,
+                "title": "Base Width",
+                "type": "number"
+              },
+              "base_thickness": {
+                "default": 3.0,
+                "maximum": 20,
+                "minimum": 1,
+                "title": "Base Thickness",
+                "type": "number"
+              },
+              "corner_radius": {
+                "default": 2.0,
+                "maximum": 10,
+                "minimum": 0,
+                "title": "Corner Radius",
+                "type": "number"
+              },
+              "hole_pitch_x": {
+                "default": 50.0,
+                "maximum": 280,
+                "minimum": 5,
+                "title": "Hole Pitch X",
+                "type": "number"
+              },
+              "hole_pitch_y": {
+                "default": 30.0,
+                "maximum": 280,
+                "minimum": 5,
+                "title": "Hole Pitch Y",
+                "type": "number"
+              },
+              "standoff_height": {
+                "default": 8.0,
+                "maximum": 60,
+                "minimum": 1,
+                "title": "Standoff Height",
+                "type": "number"
+              },
+              "standoff_diameter": {
+                "default": 7.0,
+                "maximum": 30,
+                "minimum": 3,
+                "title": "Standoff Diameter",
+                "type": "number"
+              },
+              "hole_diameter": {
+                "default": 3.2,
+                "maximum": 15,
+                "minimum": 1,
+                "title": "Hole Diameter",
+                "type": "number"
+              },
+              "minimum_wall": {
+                "default": 1.2,
+                "maximum": 5,
+                "minimum": 0.8,
+                "title": "Minimum Wall",
+                "type": "number"
+              },
+              "dimension_evidence": {
+                "additionalProperties": {
+                  "$ref": "#/$defs/DimensionEvidence"
+                },
+                "propertyNames": {
+                  "enum": [
+                    "base_length",
+                    "base_width",
+                    "base_thickness",
+                    "corner_radius",
+                    "hole_pitch_x",
+                    "hole_pitch_y",
+                    "standoff_height",
+                    "standoff_diameter",
+                    "hole_diameter",
+                    "minimum_wall"
+                  ]
+                },
+                "title": "Dimension Evidence",
+                "type": "object"
+              }
+            },
+            "title": "BracketParameters",
+            "type": "object"
+          },
+          "DimensionEvidence": {
+            "additionalProperties": false,
+            "properties": {
+              "nominal_mm": {
+                "maximum": 300,
+                "minimum": 0,
+                "title": "Nominal Mm",
+                "type": "number"
+              },
+              "uncertainty_mm": {
+                "description": "Worst-case \u00b1 input tolerance, not CAD precision",
+                "maximum": 5,
+                "minimum": 0,
+                "title": "Uncertainty Mm",
+                "type": "number"
+              },
+              "source_kind": {
+                "enum": [
+                  "measurement",
+                  "manufacturer_document",
+                  "design_decision"
+                ],
+                "title": "Source Kind",
+                "type": "string"
+              },
+              "reference": {
+                "description": "Document ID/URL or measurement record ID",
+                "maxLength": 500,
+                "minLength": 5,
+                "title": "Reference",
+                "type": "string"
+              },
+              "locator": {
+                "description": "Drawing/page/feature or measurement method",
+                "maxLength": 200,
+                "minLength": 3,
+                "title": "Locator",
+                "type": "string"
+              },
+              "revision": {
+                "maxLength": 100,
+                "minLength": 1,
+                "title": "Revision",
+                "type": "string"
+              }
+            },
+            "required": [
+              "nominal_mm",
+              "uncertainty_mm",
+              "source_kind",
+              "reference",
+              "locator",
+              "revision"
+            ],
+            "title": "DimensionEvidence",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "parameters": {
+            "$ref": "#/$defs/BracketParameters"
+          }
+        },
+        "required": [
+          "parameters"
+        ],
+        "title": "cad_build_bracketArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "ToolError": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "details": {
+                "additionalProperties": true,
+                "title": "Details",
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "ToolError",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ToolError"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "ToolResponse",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    },
+    {
+      "name": "cad_get_build",
+      "title": null,
+      "description": "Read a saved build and recheck all artifact SHA256 hashes.",
+      "inputSchema": {
+        "properties": {
+          "build_id": {
+            "title": "Build Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "build_id"
+        ],
+        "title": "cad_get_buildArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "ToolError": {
+            "properties": {
+              "code": {
+                "title": "Code",
+                "type": "string"
+              },
+              "message": {
+                "title": "Message",
+                "type": "string"
+              },
+              "details": {
+                "additionalProperties": true,
+                "title": "Details",
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "title": "ToolError",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Data"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ToolError"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "ToolResponse",
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "meta": null,
+      "execution": null
+    }
+  ],
+  "schema_status": "ok",
+  "assessment": {
+    "status": "ok",
+    "data": {
+      "parameters": {
+        "units": "mm",
+        "dimension_source": "fictional_demo",
+        "source_note": "Fictional demonstration dimensions, not measured from or matched to any real PCB.",
+        "base_length": 74.0,
+        "base_width": 54.0,
+        "base_thickness": 3.0,
+        "corner_radius": 2.0,
+        "hole_pitch_x": 50.0,
+        "hole_pitch_y": 30.0,
+        "standoff_height": 8.0,
+        "standoff_diameter": 7.0,
+        "hole_diameter": 3.2,
+        "minimum_wall": 1.2,
+        "dimension_evidence": {}
+      },
+      "accuracy": {
+        "input_status": "demonstration_only",
+        "source_independently_verified": false,
+        "physical_fit_verified": false,
+        "uncertainty_policy": "Independent worst-case intervals; no assumed error cancellation",
+        "kernel_comparison_tolerance_mm": 1e-05,
+        "input_uncertainty_mm": {
+          "base_length": null,
+          "base_width": null,
+          "base_thickness": null,
+          "corner_radius": null,
+          "hole_pitch_x": null,
+          "hole_pitch_y": null,
+          "standoff_height": null,
+          "standoff_diameter": null,
+          "hole_diameter": null,
+          "minimum_wall": null
+        },
+        "margin_basis": "nominal_only_for_missing_evidence; not a verified worst-case bound",
+        "worst_case_margins": {
+          "minimum_required_wall_mm": 1.2,
+          "base_thickness_mm": 3.0,
+          "radial_wall_mm": 1.9,
+          "edge_x_mm": 6.5,
+          "edge_y_mm": 6.5,
+          "post_gap_x_mm": 43.0,
+          "post_gap_y_mm": 23.0
+        },
+        "missing_evidence": [
+          "base_length",
+          "base_width",
+          "base_thickness",
+          "corner_radius",
+          "hole_pitch_x",
+          "hole_pitch_y",
+          "standoff_height",
+          "standoff_diameter",
+          "hole_diameter",
+          "minimum_wall"
+        ],
+        "limitations": [
+          "Recorded references do not prove that a measurement or document is authentic",
+          "CAD numerical tolerance is not a manufacturing tolerance or physical accuracy claim",
+          "PCB fit, fasteners, component clearances and shrinkage need separate validation"
+        ]
+      }
+    },
+    "error": null
+  },
+  "build": {
+    "status": "ok",
+    "data": {
+      "build_id": "bb7fb002d21d49c2a7c3680a72aec71d",
+      "artifact_directory": "bb7fb002d21d49c2a7c3680a72aec71d",
+      "artifacts": {
+        "IMPORT_SHAPR3D.md": "bb7fb002d21d49c2a7c3680a72aec71d/IMPORT_SHAPR3D.md",
+        "bracket.step": "bb7fb002d21d49c2a7c3680a72aec71d/bracket.step",
+        "bracket.stl": "bb7fb002d21d49c2a7c3680a72aec71d/bracket.stl",
+        "model.py": "bb7fb002d21d49c2a7c3680a72aec71d/model.py",
+        "parameters.json": "bb7fb002d21d49c2a7c3680a72aec71d/parameters.json",
+        "preview.html": "bb7fb002d21d49c2a7c3680a72aec71d/preview.html",
+        "preview.svg": "bb7fb002d21d49c2a7c3680a72aec71d/preview.svg",
+        "report.json": "bb7fb002d21d49c2a7c3680a72aec71d/report.json"
+      },
+      "manifest": {
+        "schema_version": 1,
+        "build_id": "bb7fb002d21d49c2a7c3680a72aec71d",
+        "created_at": "2026-10-15T06:32:35.472767+00:00",
+        "studio_version": "0.2.0",
+        "template_version": "bracket-v1",
+        "python_version": "3.12.12",
+        "dependencies": {
+          "cadquery": "2.6.1",
+          "cadquery-ocp": "7.8.1.1.post1",
+          "mcp": "1.30.0"
+        },
+        "files": {
+          "parameters.json": {
+            "sha256": "924096c798b6018011756d4a3b22a1561612b0b5b7f9a0e4274d23f6c80b07bd",
+            "bytes": 433
+          },
+          "model.py": {
+            "sha256": "faaefac39b2cfc6c90b83d656b4c6d06c3740e327cc3868b2bb688eb79d9d43c",
+            "bytes": 1458
+          },
+          "bracket.step": {
+            "sha256": "1139deef49961f92a5bf2e2ccf9fe2adcb5e758befc34a31bb239d0181c3b8c5",
+            "bytes": 62648
+          },
+          "bracket.stl": {
+            "sha256": "69623418ee98f03b2806ae68fa313c1c68bb61eb28daa3e2f24fc841edeaa920",
+            "bytes": 228684
+          },
+          "preview.html": {
+            "sha256": "50c1b4e42a73787ca8adfdafe8162fc51b7cf1dad3bac249826311356f9997a8",
+            "bytes": 306700
+          },
+          "preview.svg": {
+            "sha256": "bfb26810be17bcf00e84baf3914d598fcdd0ca8cb542f9e74b32bf08e86e4ad7",
+            "bytes": 114793
+          },
+          "report.json": {
+            "sha256": "ec7192396f088696911d62c38af829a62c0a0e8192d9b5d72cd8b8fc77f72f4b",
+            "bytes": 6751
+          },
+          "IMPORT_SHAPR3D.md": {
+            "sha256": "1a12aef5a7f446646e90613399a1a32d80820883e6d5dde3d57604ca914d4c9f",
+            "bytes": 584
+          }
+        }
+      },
+      "report": {
+        "schema_version": 2,
+        "status": "passed",
+        "units": "mm",
+        "dimension_source": "fictional_demo",
+        "source_note": "Fictional demonstration dimensions, not measured from or matched to any real PCB.",
+        "bounding_box_mm": [
+          74.0,
+          54.0,
+          11.0
+        ],
+        "volume_mm3": 12855.334435549923,
+        "analytic_volume_mm3": 12855.334435549923,
+        "solid_count": 1,
+        "holes": [
+          {
+            "centre_mm": [
+              -25.0,
+              -15.0
+            ],
+            "obstruction_mm3": 0.0,
+            "through": true,
+            "post_wall_present": true
+          },
+          {
+            "centre_mm": [
+              -25.0,
+              15.0
+            ],
+            "obstruction_mm3": 0.0,
+            "through": true,
+            "post_wall_present": true
+          },
+          {
+            "centre_mm": [
+              25.0,
+              -15.0
+            ],
+            "obstruction_mm3": 0.0,
+            "through": true,
+            "post_wall_present": true
+          },
+          {
+            "centre_mm": [
+              25.0,
+              15.0
+            ],
+            "obstruction_mm3": 0.0,
+            "through": true,
+            "post_wall_present": true
+          }
+        ],
+        "measured_features": {
+          "measurement_method": "OpenCascade analytic cylindrical faces",
+          "comparison_tolerance_mm": 1e-05,
+          "holes": [
+            {
+              "centre_mm": [
+                -25.0,
+                -15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            },
+            {
+              "centre_mm": [
+                -25.0,
+                15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                -15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            }
+          ],
+          "posts": [
+            {
+              "centre_mm": [
+                -25.0,
+                -15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            },
+            {
+              "centre_mm": [
+                -25.0,
+                15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                -15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            }
+          ],
+          "checks": {
+            "hole_axes_and_diameters_match": true,
+            "post_axes_and_diameters_match": true
+          }
+        },
+        "step_measured_features": {
+          "measurement_method": "OpenCascade analytic cylindrical faces",
+          "comparison_tolerance_mm": 1e-05,
+          "holes": [
+            {
+              "centre_mm": [
+                -25.0,
+                -15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            },
+            {
+              "centre_mm": [
+                -25.0,
+                15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                -15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                15.0
+              ],
+              "diameter_mm": 3.2,
+              "z_min_mm": 0.0,
+              "z_max_mm": 11.0,
+              "height_mm": 11.0
+            }
+          ],
+          "posts": [
+            {
+              "centre_mm": [
+                -25.0,
+                -15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            },
+            {
+              "centre_mm": [
+                -25.0,
+                15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                -15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            },
+            {
+              "centre_mm": [
+                25.0,
+                15.0
+              ],
+              "diameter_mm": 7.0,
+              "z_min_mm": 3.0,
+              "z_max_mm": 11.0,
+              "height_mm": 8.0
+            }
+          ],
+          "checks": {
+            "hole_axes_and_diameters_match": true,
+            "post_axes_and_diameters_match": true
+          }
+        },
+        "dimension_accuracy": {
+          "input_status": "demonstration_only",
+          "source_independently_verified": false,
+          "physical_fit_verified": false,
+          "uncertainty_policy": "Independent worst-case intervals; no assumed error cancellation",
+          "kernel_comparison_tolerance_mm": 1e-05,
+          "input_uncertainty_mm": {
+            "base_length": null,
+            "base_width": null,
+            "base_thickness": null,
+            "corner_radius": null,
+            "hole_pitch_x": null,
+            "hole_pitch_y": null,
+            "standoff_height": null,
+            "standoff_diameter": null,
+            "hole_diameter": null,
+            "minimum_wall": null
+          },
+          "margin_basis": "nominal_only_for_missing_evidence; not a verified worst-case bound",
+          "worst_case_margins": {
+            "minimum_required_wall_mm": 1.2,
+            "base_thickness_mm": 3.0,
+            "radial_wall_mm": 1.9,
+            "edge_x_mm": 6.5,
+            "edge_y_mm": 6.5,
+            "post_gap_x_mm": 43.0,
+            "post_gap_y_mm": 23.0
+          },
+          "missing_evidence": [
+            "base_length",
+            "base_width",
+            "base_thickness",
+            "corner_radius",
+            "hole_pitch_x",
+            "hole_pitch_y",
+            "standoff_height",
+            "standoff_diameter",
+            "hole_diameter",
+            "minimum_wall"
+          ],
+          "limitations": [
+            "Recorded references do not prove that a measurement or document is authentic",
+            "CAD numerical tolerance is not a manufacturing tolerance or physical accuracy claim",
+            "PCB fit, fasteners, component clearances and shrinkage need separate validation"
+          ]
+        },
+        "checks": {
+          "brep_valid": true,
+          "single_solid": true,
+          "bounding_box_matches": true,
+          "volume_matches_analytic": true,
+          "four_through_holes": true,
+          "four_post_walls": true,
+          "hole_axes_and_diameters_match": true,
+          "post_axes_and_diameters_match": true,
+          "step_roundtrip_valid": true
+        },
+        "preview_triangle_count": 4572,
+        "stl_tolerance_mm": 0.05,
+        "stl_angular_tolerance_rad": 0.1,
+        "not_verified": [
+          "Real PCB fit and component/connector clearances",
+          "Strength, thermal behaviour and dynamic loads",
+          "Printing tolerances, material process and screw fit",
+          "Shapr3D desktop import and physical assembly"
+        ]
+      }
+    },
+    "error": null
+  },
+  "retrieval_status": "ok"
+}

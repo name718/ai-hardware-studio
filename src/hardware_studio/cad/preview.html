@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'">
+<title>AI Hardware Studio · CAD preview</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#111a24;color:#dce5ed;font:15px system-ui}
+header{position:absolute;top:24px;left:28px;pointer-events:none}h1{font-size:22px;margin:0 0 9px}
+p{color:#9eafbf;max-width:540px;line-height:1.6}canvas{display:block;width:100vw;height:100vh;touch-action:none}
+button{position:absolute;bottom:24px;left:28px;border:1px solid #56718b;border-radius:8px;background:#24374b;color:white;padding:10px 18px;cursor:pointer}
+</style></head><body>
+<header><h1>AI Hardware Studio · 主控板安装托架</h1>
+<p>真实 CAD 网格 · 拖动旋转 / 滚轮缩放 · 单位 mm<br>
+尺寸来源见同目录 parameters.json；演示尺寸不对应真实 PCB。<br>
+此预览不代表强度、打印工艺或实物装配已验证。</p></header>
+<canvas aria-label="可旋转的托架三维网格预览" role="img"></canvas>
+<button type="button">重置视角</button>
+<script>
+'use strict';
+const mesh=__MESH_JSON__;
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d');
+let yaw=-0.6,pitch=0.9,zoom=1,drag=null;
+const bounds=[0,1,2].map(i=>[Math.min(...mesh.vertices.map(v=>v[i])),Math.max(...mesh.vertices.map(v=>v[i]))]);
+const centre=bounds.map(b=>(b[0]+b[1])/2),span=Math.max(...bounds.map(b=>b[1]-b[0]));
+function draw(){
+ const dpr=window.devicePixelRatio||1,w=innerWidth,h=innerHeight;
+ canvas.width=w*dpr;canvas.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);
+ const scale=Math.min(w,h)*0.68/span*zoom;
+ const points=mesh.vertices.map(v=>{
+  const [x,y,z]=v.map((n,i)=>n-centre[i]);
+  const a=x*Math.cos(yaw)-y*Math.sin(yaw),b=x*Math.sin(yaw)+y*Math.cos(yaw);
+  return [a,b*Math.cos(pitch)-z*Math.sin(pitch),b*Math.sin(pitch)+z*Math.cos(pitch)];
+ });
+ const faces=mesh.triangles.map(t=>({p:t.map(i=>points[i]),depth:t.reduce((a,i)=>a+points[i][2],0)/3}));
+ faces.sort((a,b)=>a.depth-b.depth);
+ for(const {p} of faces){
+  const u=p[1].map((v,i)=>v-p[0][i]),v=p[2].map((v,i)=>v-p[0][i]);
+  const n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+  const shade=0.48+0.42*Math.abs((n[0]*0.25-n[1]*0.5+n[2]*0.83)/(Math.hypot(...n)||1));
+  ctx.beginPath();p.forEach(([x,y],i)=>ctx[i?'lineTo':'moveTo'](w/2+x*scale,h*0.57-y*scale));ctx.closePath();
+  ctx.fillStyle=`rgb(${Math.round(75*shade)},${Math.round(185*shade)},${Math.round(225*shade)})`;ctx.fill();
+ }
+}
+canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)};
+canvas.onpointermove=e=>{if(!drag)return;yaw+=(e.clientX-drag[0])*0.008;pitch=Math.max(-1.5,Math.min(1.5,pitch-(e.clientY-drag[1])*0.008));drag=[e.clientX,e.clientY];draw()};
+canvas.onpointerup=canvas.onpointercancel=()=>{drag=null};
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.min(4,Math.max(0.3,zoom*Math.exp(-e.deltaY*0.001)));draw()},{passive:false});
+document.querySelector('button').onclick=()=>{yaw=-0.6;pitch=0.9;zoom=1;draw()};
+window.onresize=draw;draw();
+</script></body></html>

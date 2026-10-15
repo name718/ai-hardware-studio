@@ -1,0 +1,15 @@
+{
+  "units": "mm",
+  "dimension_source": "fictional_demo",
+  "source_note": "Fictional demonstration dimensions, not measured from or matched to any real PCB.",
+  "base_length": 74.0,
+  "base_width": 54.0,
+  "base_thickness": 3.0,
+  "corner_radius": 2.0,
+  "hole_pitch_x": 50.0,
+  "hole_pitch_y": 30.0,
+  "standoff_height": 8.0,
+  "standoff_diameter": 7.0,
+  "hole_diameter": 3.2,
+  "minimum_wall": 1.2
+}

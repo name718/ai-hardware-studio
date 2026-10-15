@@ -1,0 +1,303 @@
+{
+  "schema_version": 2,
+  "status": "passed",
+  "units": "mm",
+  "dimension_source": "fictional_demo",
+  "source_note": "Fictional demonstration dimensions, not measured from or matched to any real PCB.",
+  "bounding_box_mm": [
+    74.0,
+    54.0,
+    11.0
+  ],
+  "volume_mm3": 12855.334435549923,
+  "analytic_volume_mm3": 12855.334435549923,
+  "solid_count": 1,
+  "holes": [
+    {
+      "centre_mm": [
+        -25.0,
+        -15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    },
+    {
+      "centre_mm": [
+        -25.0,
+        15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    },
+    {
+      "centre_mm": [
+        25.0,
+        -15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    },
+    {
+      "centre_mm": [
+        25.0,
+        15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    }
+  ],
+  "measured_features": {
+    "measurement_method": "OpenCascade analytic cylindrical faces",
+    "comparison_tolerance_mm": 1e-05,
+    "holes": [
+      {
+        "centre_mm": [
+          -25.0,
+          -15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      },
+      {
+        "centre_mm": [
+          -25.0,
+          15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          -15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      }
+    ],
+    "posts": [
+      {
+        "centre_mm": [
+          -25.0,
+          -15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      },
+      {
+        "centre_mm": [
+          -25.0,
+          15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          -15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      }
+    ],
+    "checks": {
+      "hole_axes_and_diameters_match": true,
+      "post_axes_and_diameters_match": true
+    }
+  },
+  "step_measured_features": {
+    "measurement_method": "OpenCascade analytic cylindrical faces",
+    "comparison_tolerance_mm": 1e-05,
+    "holes": [
+      {
+        "centre_mm": [
+          -25.0,
+          -15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      },
+      {
+        "centre_mm": [
+          -25.0,
+          15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          -15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          15.0
+        ],
+        "diameter_mm": 3.2,
+        "z_min_mm": 0.0,
+        "z_max_mm": 11.0,
+        "height_mm": 11.0
+      }
+    ],
+    "posts": [
+      {
+        "centre_mm": [
+          -25.0,
+          -15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      },
+      {
+        "centre_mm": [
+          -25.0,
+          15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          -15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      },
+      {
+        "centre_mm": [
+          25.0,
+          15.0
+        ],
+        "diameter_mm": 7.0,
+        "z_min_mm": 3.0,
+        "z_max_mm": 11.0,
+        "height_mm": 8.0
+      }
+    ],
+    "checks": {
+      "hole_axes_and_diameters_match": true,
+      "post_axes_and_diameters_match": true
+    }
+  },
+  "dimension_accuracy": {
+    "input_status": "demonstration_only",
+    "source_independently_verified": false,
+    "physical_fit_verified": false,
+    "uncertainty_policy": "Independent worst-case intervals; no assumed error cancellation",
+    "kernel_comparison_tolerance_mm": 1e-05,
+    "input_uncertainty_mm": {
+      "base_length": null,
+      "base_width": null,
+      "base_thickness": null,
+      "corner_radius": null,
+      "hole_pitch_x": null,
+      "hole_pitch_y": null,
+      "standoff_height": null,
+      "standoff_diameter": null,
+      "hole_diameter": null,
+      "minimum_wall": null
+    },
+    "margin_basis": "nominal_only_for_missing_evidence; not a verified worst-case bound",
+    "worst_case_margins": {
+      "minimum_required_wall_mm": 1.2,
+      "base_thickness_mm": 3.0,
+      "radial_wall_mm": 1.9,
+      "edge_x_mm": 6.5,
+      "edge_y_mm": 6.5,
+      "post_gap_x_mm": 43.0,
+      "post_gap_y_mm": 23.0
+    },
+    "missing_evidence": [
+      "base_length",
+      "base_width",
+      "base_thickness",
+      "corner_radius",
+      "hole_pitch_x",
+      "hole_pitch_y",
+      "standoff_height",
+      "standoff_diameter",
+      "hole_diameter",
+      "minimum_wall"
+    ],
+    "limitations": [
+      "Recorded references do not prove that a measurement or document is authentic",
+      "CAD numerical tolerance is not a manufacturing tolerance or physical accuracy claim",
+      "PCB fit, fasteners, component clearances and shrinkage need separate validation"
+    ]
+  },
+  "checks": {
+    "brep_valid": true,
+    "single_solid": true,
+    "bounding_box_matches": true,
+    "volume_matches_analytic": true,
+    "four_through_holes": true,
+    "four_post_walls": true,
+    "hole_axes_and_diameters_match": true,
+    "post_axes_and_diameters_match": true,
+    "step_roundtrip_valid": true
+  },
+  "preview_triangle_count": 4572,
+  "stl_tolerance_mm": 0.05,
+  "stl_angular_tolerance_rad": 0.1,
+  "not_verified": [
+    "Real PCB fit and component/connector clearances",
+    "Strength, thermal behaviour and dynamic loads",
+    "Printing tolerances, material process and screw fit",
+    "Shapr3D desktop import and physical assembly"
+  ]
+}

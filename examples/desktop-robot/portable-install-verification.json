@@ -1,0 +1,22 @@
+{
+  "studio_version": "0.2.0",
+  "isolated_wheel_install": true,
+  "source_checkout_on_pythonpath": false,
+  "working_directory_contains_spaces": true,
+  "exported_skill_count": 6,
+  "mcp_tool_count": 4,
+  "mcp_build_and_integrity_readback": "passed",
+  "geometry_checks": {
+    "brep_valid": true,
+    "single_solid": true,
+    "bounding_box_matches": true,
+    "volume_matches_analytic": true,
+    "four_through_holes": true,
+    "four_post_walls": true,
+    "hole_axes_and_diameters_match": true,
+    "post_axes_and_diameters_match": true,
+    "step_roundtrip_valid": true
+  },
+  "platform": "darwin",
+  "other_operating_systems_executed": false
+}

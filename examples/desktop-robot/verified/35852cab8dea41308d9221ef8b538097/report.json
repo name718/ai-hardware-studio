@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "units": "mm",
+  "dimension_source": "fictional_demo",
+  "source_note": "Fictional demonstration dimensions, not measured from or matched to any real PCB.",
+  "bounding_box_mm": [
+    74.0,
+    54.0,
+    11.0
+  ],
+  "volume_mm3": 12855.334435549923,
+  "analytic_volume_mm3": 12855.334435549923,
+  "solid_count": 1,
+  "holes": [
+    {
+      "centre_mm": [
+        -25.0,
+        -15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    },
+    {
+      "centre_mm": [
+        -25.0,
+        15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    },
+    {
+      "centre_mm": [
+        25.0,
+        -15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    },
+    {
+      "centre_mm": [
+        25.0,
+        15.0
+      ],
+      "obstruction_mm3": 0.0,
+      "through": true,
+      "post_wall_present": true
+    }
+  ],
+  "checks": {
+    "brep_valid": true,
+    "single_solid": true,
+    "bounding_box_matches": true,
+    "volume_matches_analytic": true,
+    "four_through_holes": true,
+    "four_post_walls": true,
+    "step_roundtrip_valid": true
+  },
+  "preview_triangle_count": 4572,
+  "stl_tolerance_mm": 0.05,
+  "stl_angular_tolerance_rad": 0.1,
+  "not_verified": [
+    "Real PCB fit and component/connector clearances",
+    "Strength, thermal behaviour and dynamic loads",
+    "Printing tolerances, material process and screw fit",
+    "Shapr3D desktop import and physical assembly"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hardware-studio-cad": {
+      "command": "python",
+      "args": ["-m", "hardware_studio.cad.server"],
+      "env": {
+        "HARDWARE_STUDIO_ARTIFACT_ROOT": "./artifacts/cad"
+      }
+    }
+  }
+}

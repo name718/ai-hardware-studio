@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-hardware-studio"
+version = "0.2.0"
+description = "Agent-driven hardware engineering with a real, reproducible CAD MCP loop"
+requires-python = ">=3.12,<3.13"
+dependencies = ["cadquery>=2.6,<2.7", "mcp>=1.20,<2", "pydantic>=2.11,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "trimesh>=4.5,<5", "ruff>=0.11,<1"]
+
+[project.scripts]
+hardware-studio = "hardware_studio.cli:main"
+cad-mcp = "hardware_studio.cad.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hardware_studio"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"skills" = "hardware_studio/bundle/skills"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["integration: real OpenCascade and MCP subprocess tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+known-third-party = ["mcp"]

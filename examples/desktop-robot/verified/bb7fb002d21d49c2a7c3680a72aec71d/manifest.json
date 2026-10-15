@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "build_id": "bb7fb002d21d49c2a7c3680a72aec71d",
+  "created_at": "2026-10-15T06:32:35.472767+00:00",
+  "studio_version": "0.2.0",
+  "template_version": "bracket-v1",
+  "python_version": "3.12.12",
+  "dependencies": {
+    "cadquery": "2.6.1",
+    "cadquery-ocp": "7.8.1.1.post1",
+    "mcp": "1.30.0"
+  },
+  "files": {
+    "parameters.json": {
+      "sha256": "924096c798b6018011756d4a3b22a1561612b0b5b7f9a0e4274d23f6c80b07bd",
+      "bytes": 433
+    },
+    "model.py": {
+      "sha256": "faaefac39b2cfc6c90b83d656b4c6d06c3740e327cc3868b2bb688eb79d9d43c",
+      "bytes": 1458
+    },
+    "bracket.step": {
+      "sha256": "1139deef49961f92a5bf2e2ccf9fe2adcb5e758befc34a31bb239d0181c3b8c5",
+      "bytes": 62648
+    },
+    "bracket.stl": {
+      "sha256": "69623418ee98f03b2806ae68fa313c1c68bb61eb28daa3e2f24fc841edeaa920",
+      "bytes": 228684
+    },
+    "preview.html": {
+      "sha256": "50c1b4e42a73787ca8adfdafe8162fc51b7cf1dad3bac249826311356f9997a8",
+      "bytes": 306700
+    },
+    "preview.svg": {
+      "sha256": "bfb26810be17bcf00e84baf3914d598fcdd0ca8cb542f9e74b32bf08e86e4ad7",
+      "bytes": 114793
+    },
+    "report.json": {
+      "sha256": "ec7192396f088696911d62c38af829a62c0a0e8192d9b5d72cd8b8fc77f72f4b",
+      "bytes": 6751
+    },
+    "IMPORT_SHAPR3D.md": {
+      "sha256": "1a12aef5a7f446646e90613399a1a32d80820883e6d5dde3d57604ca914d4c9f",
+      "bytes": 584
+    }
+  }
+}
